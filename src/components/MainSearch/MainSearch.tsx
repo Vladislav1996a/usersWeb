@@ -1,5 +1,5 @@
 import { searchUsers } from "../../features/table/tableSlice";
-import { useAppDispatch } from "../../store/hook";
+import { useAppDispatch, useAppSelector } from "../../store/hook";
 import { Search } from "../Search/ Search";
 
 export const MainSearch = () => {
@@ -12,5 +12,6 @@ export const MainSearch = () => {
     };
     dispatch(searchUsers(searchParams));
   };
-  return <Search handleSearchChange={handleSearchChange} />;
+  const { searchText } = useAppSelector((state) => state.table);
+  return <Search search={searchText} handleSearchChange={handleSearchChange} />;
 };

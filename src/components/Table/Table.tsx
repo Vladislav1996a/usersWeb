@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import styles from "./Table.module.css";
 import { useAppSelector } from "../../store/hook";
 import { UserItem } from "./UserItem";
@@ -10,19 +10,33 @@ import { TableHead } from "./TableHead";
 
 export const Table: React.FC = () => {
   const [showPopup, setShowPopup] = useState(false);
+  const [search, setSearch] = useState("");
+
   const handleShowPopup = useCallback(() => {
     setShowPopup((prev) => !prev);
   }, []);
   const { users, isLoading, isError, searchUsers, searchText, tableColumns } =
     useAppSelector((state) => state.table);
 
+  const filteredUsers = useMemo(() => {
+    if (!search.trim()) return users;
+
+    const searchLower = search.toLowerCase();
+    return users.filter(
+      (user) =>
+        user.firstName.toLowerCase().includes(searchLower) ||
+        user.lastName.toLowerCase().includes(searchLower) ||
+        user.email.toLowerCase().includes(searchLower) ||
+        user.username.toLowerCase().includes(searchLower)
+    );
+  }, [search, users]);
   if (isLoading) return <LoadingState />;
   if (isError) return <ErrorState />;
   if (searchText.length && searchUsers.length === 0) return <NotFoundState />;
 
   return (
     <div className={styles.tableContainer}>
-      {showPopup && <SettingsPopup />}
+      {showPopup && <SettingsPopup search={search} setSearch={setSearch} />}
       <table className={styles.table}>
         <TableHead columns={tableColumns} handleShowPopup={handleShowPopup} />
         <tbody>
@@ -35,7 +49,7 @@ export const Table: React.FC = () => {
               />
             ))}
           {searchUsers.length === 0 &&
-            users.map((item) => (
+            filteredUsers.map((item) => (
               <UserItem
                 addLastborder={users.length < 10}
                 key={item.id}

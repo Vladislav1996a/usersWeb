@@ -4,9 +4,13 @@ import { SearchIconSvg } from "../Svg/SearchIconSvg";
 
 interface Searchprops {
   handleSearchChange: (value: React.ChangeEvent<HTMLInputElement>) => void;
+  search: string;
 }
 
-export const Search: React.FC<Searchprops> = ({ handleSearchChange }) => {
+export const Search: React.FC<Searchprops> = ({
+  handleSearchChange,
+  search,
+}) => {
   return (
     <div className="relative">
       <div className={styles.icon}>
@@ -17,6 +21,7 @@ export const Search: React.FC<Searchprops> = ({ handleSearchChange }) => {
         placeholder="Search..."
         className={styles.input}
         type="text"
+        value={search}
       />
     </div>
   );
