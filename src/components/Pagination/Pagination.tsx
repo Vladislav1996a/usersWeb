@@ -49,11 +49,11 @@ export const Pagination: React.FC = () => {
   }, [itemsPerPage]);
 
   return (
-    <div className="flex items-center">
-      <div className={styles.text}>
+    <div className="flex-col sm:flex-row flex items-center">
+      <div className={`${styles.text} sm:mr-[19px]`}>
         {startIndex} - {endIndex} of {total}
       </div>
-      <div className="flex items-center gap-[14px]">
+      <div className="flex mt-[10px] sm:mt-[0] items-center gap-[14px]">
         <button
           onClick={() => handlePageChange(1)}
           disabled={searchText.length !== 0 || currentPage === 1}

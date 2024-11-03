@@ -22,3 +22,9 @@
     align-items: center;
     color: #202932;
 }
+
+@media (max-width: 1024px) {
+    .tableBox {
+        height: 420px;
+    }
+}

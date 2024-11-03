@@ -18,3 +18,14 @@
     display: flex;
     justify-content: space-between
 }
+
+
+@media (max-width: 640px) {
+    .container{
+        flex-direction: column;
+    }
+
+    .text {
+        font-size: 8px;
+    }
+}

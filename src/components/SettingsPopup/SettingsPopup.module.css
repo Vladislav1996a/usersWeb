@@ -39,3 +39,9 @@
 .box:hover {
     background: #EAEDF0;
 }
+
+@media (max-width: 640px) {
+    .text {
+        font-size: 10px;
+    }
+}
