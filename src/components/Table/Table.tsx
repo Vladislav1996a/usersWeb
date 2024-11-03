@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Table.module.css";
 import { SettingIconSvg } from "../Svg/SettingIconSvg";
 import { useAppSelector } from "../../store/hook";
@@ -9,6 +9,7 @@ import { UserItem } from "./UserItem";
 import { SettingsPopup } from "../SettingsPopup/SettingsPopup";
 
 export const Table: React.FC = () => {
+  const [showPopup, setShowPopup] = useState(false);
   const { users, isLoading, isError, searchUsers, searchText, tableColumns } =
     useAppSelector((state) => state.table);
 
@@ -38,7 +39,7 @@ export const Table: React.FC = () => {
   }
   return (
     <div className={styles.tableContainer}>
-      <SettingsPopup />
+      {showPopup && <SettingsPopup />}
       <table className={styles.table}>
         <thead>
           <tr>
@@ -47,7 +48,10 @@ export const Table: React.FC = () => {
                 item.display && <th key={item.columnName}>{item.columnName}</th>
             )}
 
-            <th className="sticky right-[0]">
+            <th
+              className="sticky right-[0]"
+              onClick={() => setShowPopup(!showPopup)}
+            >
               <div className={styles.border}></div>
               <SettingIconSvg />
             </th>
