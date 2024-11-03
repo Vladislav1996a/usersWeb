@@ -1,26 +1,19 @@
 import React from "react";
 import styles from "./Search.module.css";
 import { SearchIconSvg } from "../Svg/SearchIconSvg";
-import { useAppDispatch } from "../../store/hook";
-import { searchUsers } from "../../features/table/tableSlice";
 
-export const Search: React.FC = () => {
-  const dispatch = useAppDispatch();
+interface Searchprops {
+  handleSearchChange: (value: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const searchParams = {
-      url: `https://dummyjson.com/users/search?q=${e.target.value}`,
-      searchText: e.target.value,
-    };
-    dispatch(searchUsers(searchParams));
-  };
+export const Search: React.FC<Searchprops> = ({ handleSearchChange }) => {
   return (
     <div className="relative">
       <div className={styles.icon}>
         <SearchIconSvg />
       </div>
       <input
-        onChange={handleSearch}
+        onChange={handleSearchChange}
         placeholder="Search..."
         className={styles.input}
         type="text"

@@ -2,6 +2,77 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { UserData } from "../../types";
 import { AppDispatch } from "../../store/store";
 
+interface TableColumns {
+  columnName: string;
+  display: boolean;
+}
+const initialTableColumns = [
+  {
+    columnName: "Full name",
+    display: true,
+  },
+  {
+    columnName: "Birthday",
+    display: true,
+  },
+  {
+    columnName: "Gender",
+    display: true,
+  },
+  {
+    columnName: "Email",
+    display: true,
+  },
+  {
+    columnName: "Phone",
+    display: true,
+  },
+  {
+    columnName: "Username",
+    display: true,
+  },
+  {
+    columnName: "General Info",
+    display: true,
+  },
+  {
+    columnName: "Domain",
+    display: true,
+  },
+  {
+    columnName: "IP",
+    display: true,
+  },
+  {
+    columnName: "MAC IP",
+    display: true,
+  },
+  {
+    columnName: "Address",
+    display: true,
+  },
+  {
+    columnName: "Bank",
+    display: true,
+  },
+  {
+    columnName: "University",
+    display: true,
+  },
+  {
+    columnName: "Company",
+    display: true,
+  },
+  {
+    columnName: "EIN",
+    display: true,
+  },
+  {
+    columnName: "SSN",
+    display: true,
+  },
+];
+
 interface TableState {
   users: UserData[];
   searchUsers: UserData[];
@@ -10,6 +81,7 @@ interface TableState {
   itemsPerPage: number;
   isError: boolean;
   searchText: string;
+  tableColumns: TableColumns[];
 }
 
 const initialState: TableState = {
@@ -20,6 +92,7 @@ const initialState: TableState = {
   itemsPerPage: 10,
   isError: false,
   searchText: "",
+  tableColumns: initialTableColumns,
 };
 
 export const getUsers = createAsyncThunk<
@@ -54,6 +127,14 @@ export const tableSlice = createSlice({
     setItemsPerPage: (state, action) => {
       state.itemsPerPage = action.payload;
     },
+    setDisplayTableColumn: (state, action) => {
+      state.tableColumns = state.tableColumns.map((item) => {
+        if (item.columnName === action.payload.columnName) {
+          return { ...item, display: action.payload.display };
+        }
+        return item;
+      });
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -83,5 +164,6 @@ export const tableSlice = createSlice({
   },
 });
 
-export const { setSearchText, setItemsPerPage } = tableSlice.actions;
+export const { setSearchText, setItemsPerPage, setDisplayTableColumn } =
+  tableSlice.actions;
 export default tableSlice.reducer;

@@ -6,11 +6,11 @@ import { LoadingIconSvg } from "../Svg/LoadingIconSvg";
 import { ErrorIconSvg } from "../Svg/ErrorIconSvg";
 import { NotFoundSvg } from "../Svg/NotFoundSvg";
 import { UserItem } from "./UserItem";
+import { SettingsPopup } from "../SettingsPopup/SettingsPopup";
 
 export const Table: React.FC = () => {
-  const { users, isLoading, isError, searchUsers, searchText } = useAppSelector(
-    (state) => state.table
-  );
+  const { users, isLoading, isError, searchUsers, searchText, tableColumns } =
+    useAppSelector((state) => state.table);
 
   if (isLoading) {
     return (
@@ -38,25 +38,15 @@ export const Table: React.FC = () => {
   }
   return (
     <div className={styles.tableContainer}>
+      <SettingsPopup />
       <table className={styles.table}>
         <thead>
           <tr>
-            <th>Full Name</th>
-            <th>Birthday</th>
-            <th>Gender</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Username</th>
-            <th>General Info</th>
-            <th>Domain</th>
-            <th>IP</th>
-            <th>MAC IP</th>
-            <th>Address</th>
-            <th>Bank</th>
-            <th>University</th>
-            <th>Company</th>
-            <th>EIN</th>
-            <th>SSN</th>
+            {tableColumns.map(
+              (item) =>
+                item.display && <th key={item.columnName}>{item.columnName}</th>
+            )}
+
             <th className="sticky right-[0]">
               <div className={styles.border}></div>
               <SettingIconSvg />
@@ -64,13 +54,14 @@ export const Table: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {searchUsers.map((item) => (
-            <UserItem
-              key={item.id}
-              item={item}
-              addLastborder={searchUsers.length < 10}
-            />
-          ))}
+          {searchUsers.length !== 0 &&
+            searchUsers.map((item) => (
+              <UserItem
+                key={item.id}
+                item={item}
+                addLastborder={searchUsers.length < 10}
+              />
+            ))}
           {searchUsers.length === 0 &&
             users.map((item) => (
               <UserItem

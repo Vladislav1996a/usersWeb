@@ -4,6 +4,7 @@
     border: 1px solid #ddd;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+    position: relative;
     height: 590px;
 }
 
@@ -66,7 +67,8 @@
 
 .table td {
     /* I know that it is better not to do this. Because different browsers calculate differently. But I want to make pixel perfect */
-    padding: 11.4px;
+    padding: 11.3px;
+    height: 55.75px;
 }
 
 .border {
