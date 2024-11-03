@@ -1,11 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { UserData } from "../../types";
+import { TableColumns, UserData } from "../../types";
 import { AppDispatch } from "../../store/store";
 
-interface TableColumns {
-  columnName: string;
-  display: boolean;
-}
 const initialTableColumns = [
   {
     columnName: "Full name",

@@ -66,3 +66,7 @@ export interface UserData {
 export interface IconSvgProps {
   disabled: boolean;
 }
+export interface TableColumns {
+  columnName: string;
+  display: boolean;
+}
