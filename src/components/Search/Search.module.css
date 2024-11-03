@@ -1,0 +1,22 @@
+.input {
+    padding: 8px 12px 8px 8px;
+    background: rgba(32, 41, 50, 0.03);
+    border: 1px solid #EAEDF0;
+    border-radius: 8px;
+    font-family: 'IBM Plex Sans';
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    color: #5F6E7C;
+    width: 100%;
+    padding-left: 36px;
+}
+
+.icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}

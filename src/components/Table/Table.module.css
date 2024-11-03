@@ -1,0 +1,129 @@
+.tableContainer {
+    width: 100%;
+    overflow: auto; 
+    border: 1px solid #ddd;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    height: 605px;
+}
+
+.tableBox {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    height: 605px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-bottom: 4px solid #DFDFDF;
+}
+
+.infoText{
+    font-family: 'IBM Plex Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    margin-top: 21px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    color: #202932;
+}
+
+.table {
+    width: 100%;
+    table-layout: auto; 
+    border-collapse: collapse;
+}
+
+.table thead {
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    z-index: 2;
+    top: 0;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    
+}
+
+
+.table th, .table td {
+    padding: 8px;
+    border-right: 1px solid #ddd;
+    white-space: nowrap; 
+}
+
+
+
+.table th:nth-last-child(2) {
+    border-right: 0;
+}
+
+.table td {
+    /* I know that it is better not to do this. Because different browsers calculate differently. But I want to make pixel perfect */
+    padding: 11.4px;
+}
+
+.border {
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    left: -.5px;
+    top: 0;
+    background-color: #ddd;
+}
+
+.table td {
+    font-family: 'IBM Plex Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    color: #202932;
+}
+
+.table tr {
+    border-bottom: 1px solid #ddd;
+    z-index: 1;
+    position: relative;
+}
+
+.table tr:last-child,.table th:last-child, .table td:last-child {
+    border-right: 0;
+    border-bottom: 0;
+}
+
+.table th {
+    text-align: left;
+    font-family: 'IBM Plex Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 12px;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+    background: #F7F7F8;
+    color: #5F6E7C;
+}
+
+
+.icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.box {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    width: max-content;
+    font-family: 'IBM Plex Sans';
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 20px;
+    color: #202932;
+
+}
