@@ -7,14 +7,14 @@ import { useAppSelector } from "../../store/hook";
 
 interface UserItemProps {
   item: UserData;
-  addLastborder: boolean;
+  addLastBorder: boolean;
 }
 
-export const UserItem: React.FC<UserItemProps> = ({ item, addLastborder }) => {
+export const UserItem: React.FC<UserItemProps> = ({ item, addLastBorder }) => {
   const { tableColumns } = useAppSelector((state) => state.table);
 
   return (
-    <tr className={`${addLastborder && styles.borderLast}`}>
+    <tr className={`${addLastBorder && styles.borderLast}`}>
       {tableColumns.map((column) => {
         if (!column.display) return null;
 

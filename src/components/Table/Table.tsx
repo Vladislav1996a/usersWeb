@@ -15,8 +15,15 @@ export const Table: React.FC = () => {
   const handleShowPopup = useCallback(() => {
     setShowPopup((prev) => !prev);
   }, []);
-  const { users, isLoading, isError, searchUsers, searchText, tableColumns } =
-    useAppSelector((state) => state.table);
+  const {
+    users,
+    isLoading,
+    isError,
+    searchUsers,
+    searchText,
+    tableColumns,
+    itemsPerPage,
+  } = useAppSelector((state) => state.table);
 
   const filteredUsers = useMemo(() => {
     if (!search.trim()) return users;
@@ -29,35 +36,37 @@ export const Table: React.FC = () => {
         user.email.toLowerCase().includes(searchLower) ||
         user.username.toLowerCase().includes(searchLower)
     );
-  }, [search, users]);
+  }, [search, users, itemsPerPage]);
   if (isLoading) return <LoadingState />;
   if (isError) return <ErrorState />;
   if (searchText.length && searchUsers.length === 0) return <NotFoundState />;
 
   return (
-    <div className={styles.tableContainer}>
+    <div className="relative">
       {showPopup && <SettingsPopup search={search} setSearch={setSearch} />}
-      <table className={styles.table}>
-        <TableHead columns={tableColumns} handleShowPopup={handleShowPopup} />
-        <tbody>
-          {searchUsers.length !== 0 &&
-            searchUsers.map((item) => (
-              <UserItem
-                key={item.id}
-                item={item}
-                addLastborder={searchUsers.length < 10}
-              />
-            ))}
-          {searchUsers.length === 0 &&
-            filteredUsers.map((item) => (
-              <UserItem
-                addLastborder={users.length < 10}
-                key={item.id}
-                item={item}
-              />
-            ))}
-        </tbody>
-      </table>
+      <div className={styles.tableContainer}>
+        <table className={styles.table}>
+          <TableHead columns={tableColumns} handleShowPopup={handleShowPopup} />
+          <tbody>
+            {searchUsers.length !== 0 &&
+              searchUsers.map((item) => (
+                <UserItem
+                  key={item.id}
+                  item={item}
+                  addLastBorder={searchUsers.length < 10}
+                />
+              ))}
+            {searchUsers.length === 0 &&
+              filteredUsers.map((item) => (
+                <UserItem
+                  addLastBorder={filteredUsers.length < 10}
+                  key={item.id}
+                  item={item}
+                />
+              ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

@@ -80,6 +80,16 @@ interface TableState {
   tableColumns: TableColumns[];
 }
 
+const tableColumnsStorage: TableColumns[] = (() => {
+  try {
+    const storedColumns = localStorage.getItem("settingColumns");
+    return storedColumns ? JSON.parse(storedColumns) : null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+})();
+
 const initialState: TableState = {
   users: [],
   searchUsers: [],
@@ -88,7 +98,7 @@ const initialState: TableState = {
   itemsPerPage: 10,
   isError: false,
   searchText: "",
-  tableColumns: initialTableColumns,
+  tableColumns: tableColumnsStorage || initialTableColumns,
 };
 
 export const getUsers = createAsyncThunk<
@@ -123,13 +133,25 @@ export const tableSlice = createSlice({
     setItemsPerPage: (state, action) => {
       state.itemsPerPage = action.payload;
     },
-    setDisplayTableColumn: (state, action) => {
+    setDisplayTableColumn: (
+      state,
+      action: PayloadAction<{ columnName: string; display: boolean }>
+    ) => {
       state.tableColumns = state.tableColumns.map((item) => {
         if (item.columnName === action.payload.columnName) {
           return { ...item, display: action.payload.display };
         }
         return item;
       });
+
+      try {
+        localStorage.setItem(
+          "settingColumns",
+          JSON.stringify(state.tableColumns)
+        );
+      } catch (error) {
+        console.error("Failed to save table columns to localStorage:", error);
+      }
     },
   },
   extraReducers: (builder) => {
