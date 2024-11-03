@@ -4,7 +4,7 @@
     border: 1px solid #ddd;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    height: 605px;
+    height: 590px;
 }
 
 .tableBox {
@@ -12,7 +12,7 @@
     border: 1px solid #ddd;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    height: 605px;
+    height: 590px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -55,6 +55,9 @@
     white-space: nowrap; 
 }
 
+.table th {
+    padding: 1px 8px;
+}
 
 
 .table th:nth-last-child(2) {
@@ -90,9 +93,13 @@
     position: relative;
 }
 
-.table tr:last-child,.table th:last-child, .table td:last-child {
+.table tr:last-child, .table th:last-child, .table td:last-child {
     border-right: 0;
     border-bottom: 0;
+}
+
+.table .borderLast:last-child {
+    border-bottom: 1px solid #ddd;
 }
 
 .table th {

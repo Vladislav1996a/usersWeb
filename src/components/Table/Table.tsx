@@ -1,13 +1,11 @@
 import React from "react";
 import styles from "./Table.module.css";
-
-import { MaleIconSvg } from "../Svg/MaleIconSvg";
-import { FemaleIconSvg } from "../Svg/FemaleIconSvg";
 import { SettingIconSvg } from "../Svg/SettingIconSvg";
 import { useAppSelector } from "../../store/hook";
 import { LoadingIconSvg } from "../Svg/LoadingIconSvg";
 import { ErrorIconSvg } from "../Svg/ErrorIconSvg";
 import { NotFoundSvg } from "../Svg/NotFoundSvg";
+import { UserItem } from "./UserItem";
 
 export const Table: React.FC = () => {
   const { users, isLoading, isError, searchUsers, searchText } = useAppSelector(
@@ -67,81 +65,19 @@ export const Table: React.FC = () => {
         </thead>
         <tbody>
           {searchUsers.map((item) => (
-            <tr key={item.id}>
-              <td>
-                <div className={styles.box}>
-                  <img
-                    className={styles.icon}
-                    src={item.image}
-                    alt={item.firstName}
-                  />
-                  {`${item.id} ${item.lastName}`}
-                </div>
-              </td>
-              <td>{item.birthDate}</td>
-              <td>
-                <div className={`capitalize flex items-center`}>
-                  <div className="w-[12px]">
-                    {item.gender === "male" && <MaleIconSvg />}
-                    {item.gender === "female" && <FemaleIconSvg />}
-                  </div>
-                  {item.gender}
-                </div>
-              </td>
-              <td>{item.email}</td>
-              <td>{item.phone}</td>
-              <td>{item.username}</td>
-              <td>{`Bloodgroup “${item.bloodGroup}”; Height ${item.height}; Weight ${item.weight}; Hair color ${item.hair.color}`}</td>
-              <td>{item.username}</td>
-              <td>{item.ip}</td>
-              <td>{item.macAddress}</td>
-              <td>{`${item.address.address}. ${item.address.city}, ${item.address.state} ${item.address.postalCode}`}</td>
-              <td>{item.bank.cardType}</td>
-              <td>{item.university}</td>
-              <td>{item.company.name}</td>
-              <td>{item.ein}</td>
-              <td>{item.ssn}</td>
-              <td></td>
-            </tr>
+            <UserItem
+              key={item.id}
+              item={item}
+              addLastborder={searchUsers.length < 10}
+            />
           ))}
           {searchUsers.length === 0 &&
             users.map((item) => (
-              <tr key={item.id}>
-                <td>
-                  <div className={styles.box}>
-                    <img
-                      className={styles.icon}
-                      src={item.image}
-                      alt={item.firstName}
-                    />
-                    {`${item.id} ${item.lastName}`}
-                  </div>
-                </td>
-                <td>{item.birthDate}</td>
-                <td>
-                  <div className={`capitalize flex items-center`}>
-                    <div className="w-[12px]">
-                      {item.gender === "male" && <MaleIconSvg />}
-                      {item.gender === "female" && <FemaleIconSvg />}
-                    </div>
-                    {item.gender}
-                  </div>
-                </td>
-                <td>{item.email}</td>
-                <td>{item.phone}</td>
-                <td>{item.username}</td>
-                <td>{`Bloodgroup “${item.bloodGroup}”; Height ${item.height}; Weight ${item.weight}; Hair color ${item.hair.color}`}</td>
-                <td>{item.username}</td>
-                <td>{item.ip}</td>
-                <td>{item.macAddress}</td>
-                <td>{`${item.address.address}. ${item.address.city}, ${item.address.state} ${item.address.postalCode}`}</td>
-                <td>{item.bank.cardType}</td>
-                <td>{item.university}</td>
-                <td>{item.company.name}</td>
-                <td>{item.ein}</td>
-                <td>{item.ssn}</td>
-                <td></td>
-              </tr>
+              <UserItem
+                addLastborder={users.length < 10}
+                key={item.id}
+                item={item}
+              />
             ))}
         </tbody>
       </table>

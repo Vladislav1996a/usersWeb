@@ -6,8 +6,8 @@ interface TableState {
   users: UserData[];
   searchUsers: UserData[];
   total: number;
-  // currentPage: number;
   isLoading: boolean;
+  itemsPerPage: number;
   isError: boolean;
   searchText: string;
 }
@@ -17,8 +17,8 @@ const initialState: TableState = {
   searchUsers: [],
   total: 0,
   isLoading: false,
+  itemsPerPage: 10,
   isError: false,
-  // currentPage: 1,
   searchText: "",
 };
 
@@ -48,11 +48,11 @@ export const tableSlice = createSlice({
   name: "table",
   initialState,
   reducers: {
-    // setCurrentPage: (state, action) => {
-    //   state.currentPage = action.payload;
-    // },
     setSearchText: (state, action: PayloadAction<string>) => {
       state.searchText = action.payload;
+    },
+    setItemsPerPage: (state, action) => {
+      state.itemsPerPage = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -83,5 +83,5 @@ export const tableSlice = createSlice({
   },
 });
 
-export const { setSearchText } = tableSlice.actions;
+export const { setSearchText, setItemsPerPage } = tableSlice.actions;
 export default tableSlice.reducer;

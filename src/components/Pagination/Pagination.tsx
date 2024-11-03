@@ -9,8 +9,9 @@ import { getUsers } from "../../features/table/tableSlice";
 
 export const Pagination: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { total, searchText } = useAppSelector((state) => state.table);
-  const itemsPerPage = 10;
+  const { total, searchText, itemsPerPage } = useAppSelector(
+    (state) => state.table
+  );
   const totalPages = Math.ceil(total / itemsPerPage);
   const dispatch = useAppDispatch();
   const startIndex = (currentPage - 1) * itemsPerPage + 1;
@@ -41,33 +42,37 @@ export const Pagination: React.FC = () => {
         }`
       )
     );
-  }, [currentPage, dispatch]);
+  }, [currentPage, dispatch, itemsPerPage]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [itemsPerPage]);
 
   return (
     <div className="flex items-center">
       <div className={styles.text}>
-        {startIndex} - {endIndex} of {total} {totalPages}
+        {startIndex} - {endIndex} of {total}
       </div>
-      <div className="flex items-center gap-[20px]">
+      <div className="flex items-center gap-[14px]">
         <button
           onClick={() => handlePageChange(1)}
           disabled={searchText.length !== 0 || currentPage === 1}
+          className="px-[6px] py-[4px]"
         >
           <ArrowLastLeftSvg
             disabled={searchText.length !== 0 || currentPage === 1}
           />
         </button>
 
-        <div className="ml-[8px]">
-          <button
-            onClick={() => handlePageChange(currentPage - 1)}
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={searchText.length !== 0 || currentPage === 1}
+          className="px-[6px] py-[4px]"
+        >
+          <ArrowLeftSvg
             disabled={searchText.length !== 0 || currentPage === 1}
-          >
-            <ArrowLeftSvg
-              disabled={searchText.length !== 0 || currentPage === 1}
-            />
-          </button>
-        </div>
+          />
+        </button>
         <input
           value={currentPage}
           onChange={handleInputChange}
@@ -75,19 +80,19 @@ export const Pagination: React.FC = () => {
           type="number"
           disabled={searchText.length !== 0}
         />
-        <div className="mr-[8px]">
-          <button
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={searchText.length !== 0 || currentPage === totalPages}
-          >
-            <ArrowRightSvg
-              disabled={searchText.length !== 0 || currentPage === totalPages}
-            />
-          </button>
-        </div>
         <button
-          onClick={() => handlePageChange(21)}
+          onClick={() => handlePageChange(currentPage + 1)}
           disabled={searchText.length !== 0 || currentPage === totalPages}
+          className="px-[6px] py-[4px]"
+        >
+          <ArrowRightSvg
+            disabled={searchText.length !== 0 || currentPage === totalPages}
+          />
+        </button>
+        <button
+          onClick={() => handlePageChange(totalPages)}
+          disabled={searchText.length !== 0 || currentPage === totalPages}
+          className="px-[6px] py-[4px]"
         >
           <ArrowLastRightSvg
             disabled={searchText.length !== 0 || currentPage === totalPages}
